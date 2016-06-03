@@ -31,6 +31,7 @@ local function connect (conn, data)
       function (cn, req_data)
          query_data = get_http_req (req_data)
          print (query_data["METHOD"] .. " " .. " " .. query_data["User-Agent"]);
+		 lighton=1;
          
          cn:send ("HTTP/1.1 200 OK \r\n");
          cn:send ("Server: NodeMCU on ESP8266\r\n");
@@ -72,6 +73,24 @@ end
 print("Ready to start soft ap")
 print("ssid = 'esp8266'");
 print("pwd = '12345678'");
+
+gpio.mode(6, gpio.OUTPUT)
+gpio.mode(7, gpio.OUTPUT)
+gpio.mode(8, gpio.OUTPUT)
+
+lighton=0
+tmr.alarm(0,1000,1,function()
+    if lighton==0 then 
+        gpio.write(6, gpio.HIGH) 
+        gpio.write(7, gpio.LOW) 
+        gpio.write(8, gpio.LOW) 
+    else
+        lighton=0
+        gpio.write(6, gpio.HIGH)
+        gpio.write(7, gpio.HIGH) 
+        gpio.write(8, gpio.HIGH) 
+    end 
+end)
 
 wifi.ap.config({
     ssid = 'esp8266',
