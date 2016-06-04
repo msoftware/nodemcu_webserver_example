@@ -5,3 +5,4 @@ This simple esp8266 webserver is a standalone solution. It does not need a gatew
 
 The Webserver has a simple http protocol implementation incl. a basic http header which is necessary if you want to publish http content.
 
+To run the lua script you need a nodemcu firmware with some modules. I added a working firmware to this repository.
